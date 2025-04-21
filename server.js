@@ -3,8 +3,9 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/authRoutes');
 // const orderRoutes = require('./routes/orderRoutes');
-// const cakeRoutes = require('./routes/cakeRoutes');
 const client = require('./config/db');
+const cakeRoutes = require('./routes/cakeRoutes');
+
 
 dotenv.config();
 
@@ -17,13 +18,14 @@ app.use(cors({
     methods: ['GET', 'POST'], 
     credentials: true, 
   }));
-  
+
 app.use(express.json());
+
 
 // Routes
 app.use('/api/v1', authRoutes);
 // app.use('/api/orders', orderRoutes);
-// app.use('/api/cakes', cakeRoutes);
+app.use('/api/v1/cakes', cakeRoutes);
 
 client.connect().then(() => {
     console.log('Connected to the database');
